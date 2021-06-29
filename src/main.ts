@@ -4,27 +4,27 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 
-// @Catch(HttpException)
-// export class HttpExceptionFilter  implements ExceptionFilter {
-//   catch(exception: HttpException, host: ArgumentsHost) {
-//     const ctx = host.switchToHttp();
-//     const response : any = ctx.getResponse<Response>();
-//     const request : any = ctx.getRequest<Request>();
-//     const status = exception.getStatus();
-//     const message : any =  exception.getResponse();
+@Catch(HttpException)
+export class HttpExceptionFilter  implements ExceptionFilter {
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response : any = ctx.getResponse<Response>();
+    const request : any = ctx.getRequest<Request>();
+    const status = exception.getStatus();
+    const message : any =  exception.getResponse();
 
-//     response
-//       .status(status)
-//       // you can manipulate the response here
-//       .json({
-//         statusCode: status,
-//         timestamp: new Date().toISOString(),
-//         path: request.url,
-//         message : message.message[0],
-//         code: '001'
-//       });
-//   }
-// }
+    response
+      .status(status)
+      // you can manipulate the response here
+      .json({
+        statusCode: status,
+        timestamp: new Date().toISOString(),
+        path: request.url,
+        message : message.message[0],
+        code: '001'
+      });
+  }
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
